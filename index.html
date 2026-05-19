@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Drawing Workspace</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main class="app-shell">
+        <section class="stage" aria-label="Camera drawing canvas">
+            <video class="input_video" autoplay playsinline muted></video>
+            <canvas class="output_canvas"></canvas>
+            <canvas class="drawing_canvas" aria-hidden="true"></canvas>
+            <div class="stage-overlay">
+                <a class="brand" id="appBrand" href="#" aria-label="Application brand">
+                    <span class="brand-mark" id="brandMark" aria-hidden="true">
+                        <img class="brand-logo" id="brandLogo" alt="" hidden>
+                    </span>
+                    <span class="brand-name" id="brandName"></span>
+                </a>
+
+                <section class="controls" aria-label="Drawing controls">
+                    <button class="control-button toggle-button is-active" id="toggleDrawing" type="button" aria-pressed="true">
+                        <span class="button-label">Drawing On</span>
+                    </button>
+                    <button class="control-button" id="undoStroke" type="button">
+                        Undo
+                    </button>
+                    <button class="control-button" id="clearDrawing" type="button">
+                        Clear
+                    </button>
+                </section>
+
+                <section class="emoji-toolbar" aria-label="Emoji tools">
+                    <button class="control-button emoji-button is-active" id="emojiPicker0" type="button" data-emoji="😀" aria-pressed="true">😀</button>
+                    <button class="control-button emoji-button" id="emojiPicker1" type="button" data-emoji="👍" aria-pressed="false">👍</button>
+                    <button class="control-button emoji-button" id="emojiPicker2" type="button" data-emoji="🎉" aria-pressed="false">🎉</button>
+                    <button class="control-button" id="clearEmojis" type="button">Clear Emojis</button>
+                </section>
+            </div>
+
+            <p class="status" id="trackingStatus" role="status" aria-live="polite">Starting camera...</p>
+            <div class="air-cursor" id="airCursor" aria-hidden="true"></div>
+            <div class="emoji-cursor" id="emojiCursor" aria-hidden="true"></div>
+        </section>
+    </main>
+
+    <script src="jav.js"></script>
+</body>
+</html>
