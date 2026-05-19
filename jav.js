@@ -59,7 +59,7 @@ const config = {
     landmarkBoundsPadding: 0.08,
     maxLandmarkJump: 0.36,
     lineWidth: 6.4,
-    lineGlowBlur: 2,
+    lineGlowBlur: 3,
     handConnectorWidth: 2,
     handPointWidth: 2,
     handPointRadius: 2.4,
@@ -684,9 +684,21 @@ function undoLastMark() {
 }
 
 function getCanvasPoint(landmark) {
+    const videoRect = canvasElement.getBoundingClientRect();
+    const drawingRect = drawingCanvasElement.getBoundingClientRect();
+    if (!videoRect.width || !videoRect.height || !drawingRect.width || !drawingRect.height) {
+        return {
+            x: (1 - landmark.x) * drawingCanvasElement.width,
+            y: landmark.y * drawingCanvasElement.height
+        };
+    }
+
+    const viewportX = videoRect.left + (1 - landmark.x) * videoRect.width;
+    const viewportY = videoRect.top + landmark.y * videoRect.height;
+
     return {
-        x: (1 - landmark.x) * drawingCanvasElement.width,
-        y: landmark.y * drawingCanvasElement.height
+        x: ((viewportX - drawingRect.left) / drawingRect.width) * drawingCanvasElement.width,
+        y: ((viewportY - drawingRect.top) / drawingRect.height) * drawingCanvasElement.height
     };
 }
 
